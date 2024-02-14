@@ -1,0 +1,22 @@
+{% extends 'admin/dashboard.html' %}
+{% load crispy_forms_filters %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container mt-3 form" style="width: 95%; font-size: 14px">
+    <form method="POST" action="{% url 'create_timetable' %}" class="card p-3 mt-5" autocomplete="off" enctype="multipart/form-data" id="timetable-form">
+        {{ form|crispy }}
+        {% csrf_token %}
+
+        <!-- Additional form fields for each day -->
+        
+        <button type="submit" class="button is-info">Submit</button>
+    </form>
+
+    <!---- MESSAGE FROM BACKEND --->
+
+
+
+{% endblock content %}
+{% block footer %}
+{% endblock %}

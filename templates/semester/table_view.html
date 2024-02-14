@@ -1,0 +1,46 @@
+{% extends 'admin/dashboard.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="box cta">
+        <div class="columns is-mobile is-centered">
+            <div class="field is-grouped is-grouped-multiline">
+                <div class="control">
+                    <a href="{% url 'semester_index' %}">
+                        <button class="button is-link is-medium">Back</button>
+                    </a>
+                </div>
+                
+
+            </div>
+        </div>
+    </div>
+
+    <section class="container">
+        <div class="columns is-multiline">
+            {% for semester_instance, classes in semester_with_classes %}
+                <div class="column is-4"> <!-- Adjust the column size as needed -->
+                    <article class="message is-info">
+                        <div class="message-header">
+                            <p> Semester: {{ semester_instance.name }}</p>
+                            <button class="delete" aria-label="delete"></button>
+                        </div>
+                        <div class="message-body">
+                            {% for class_instance in classes %}
+                                <div class="board-item">
+                                    <div class="board-item-content">
+                                        <span>{{ class_instance.name }}</span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </article>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    {% block footer %}
+    {% endblock %}
+
+{% endblock content %}

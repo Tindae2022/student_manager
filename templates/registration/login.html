@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Log-in</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.2/css/bulma.min.css">
+</head>
+<body>
+<section class="hero is-dark is-medium">
+    <div class="hero-body">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-6-desktop">
+                    {% if form.errors %}
+                        <div class="notification is-danger">
+                            <p>Your Username and Password didn't match. Please try again.</p>
+                        </div>
+                   
+                    {% endif %}
+                    <form action="{% url 'login' %}" method="post" class="box">
+                        {% csrf_token %}
+                       <div class="field has-text-centered">
+    <img src="{% static 'images/lim_logo.png' %}" width="100px" alt="" class="is-rounded">
+</div>
+
+                       <div class="field">
+    <label class="label">Username</label>
+    <div class="control has-icons-left">
+        {{ form.username }}
+        
+    </div>
+</div>
+                        <div class="field">
+                            <label class="label">Password</label>
+                            <div class="control has-icons-left">
+                                {{ form.password }}
+                              
+                            </div>
+                        </div>
+                        <div class="field">
+                            <input type="hidden" name="next" value="{{ next }}">
+                            <button class="button is-info is-fullwidth" type="submit">Log in</button>
+                        </div>
+                    </form>
+                    <p class="has-text-centered is-link">
+                        <a href="#">Forgotten your password?</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

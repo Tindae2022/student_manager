@@ -1,0 +1,450 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin - Free Bulma template</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <!-- Bulma Version 0.9.0-->
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.4/css/bulma.min.css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin.css' %}">
+    <!-- In the <head> of your HTML document -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+   
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="{% static 'css/table.css' %}">
+    
+    <!-- Add these links to include Bootstrap from a CDN -->
+     <style>
+        /* Style for dropdown */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Style for dropdown button */
+        .dropdown-button {
+            
+            color: black;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Style for dropdown content */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        /* Style for dropdown items */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        /* Change color on hover */
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        /* Show dropdown on hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+    <!-- START NAV -->
+    <nav class="navbar is-white">
+        <div class="container">
+            <div class="navbar-brand">
+                <a class="navbar-item brand-text" href="#">
+          FICT Year Leader System
+        </a>
+                <div class="navbar-burger burger" data-target="navMenu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div id="navMenu" class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item" href="{% url 'dashboard' %}">
+            Dashboard
+          </a>
+                    <a class="navbar-item" href="{% url 'issue_index' %}">
+           Issues
+          </a>
+                    <a class="navbar-item" href="#">
+            Blog
+          </a>
+                    <a class="navbar-item" href="#">
+            News
+          </a>
+                
+                 
+                </div>
+
+            </div>
+        </div>
+        <div class="navbar-end" style="margin-left: auto;">
+    <a class="navbar-item" href="{% url 'logout' %}">
+        Log Out
+    </a>
+</div>
+    </nav>
+    <!-- END NAV -->
+    <div class="container">
+        <div class="columns">
+            <div class="column is-3 ">
+                <aside class="menu is-hidden-mobile">
+                    <p class="menu-label">
+                        Academics
+                    </p>
+                    <ul class="menu-list">
+                       
+  <li><a href="{% url 'student_index' %}" class="is-active">Students</a></li>
+
+                     
+                        <li><a href="{% url 'course_index' %}">Courses</a></li>
+                           
+                       
+                        <li><a href="{% url 'lecturer_index'  %}">Lecturers</a></li>
+                        
+                        
+                        <li><a href="{% url 'module_index' %}">Modules</a></li>
+                          
+                       
+                        <li><a href="{% url 'class_list' %}">Classes</a></li>
+                        
+                        <li><a href="{% url 'semester_index' %}">Semester</a></li>
+                        
+                        
+                      <div class="dropdown">
+    <p class="dropdown-button">Timetables</p>
+    <div class="dropdown-content">
+        <a href="{% url 'create_timetable' %}">New</a>
+        <a href="{% url 'class_index' %}">View</a>
+    </div>
+</div>
+                        
+                       
+                        <li><a href="#">Appraisal</a></li>
+                         
+                    </ul>
+                   
+                </aside>
+                
+                  <br>
+                    <br>
+                  
+             
+                   <ul>
+        <li><a class="button is-info is-size-1-mobile" href="{% url 'password_change' %}">Change Password</a></li>
+    </ul>
+            </div>
+            <div class="column is-9">
+                
+                <section class="hero is-info welcome is-small">
+    <div class="hero-body">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+
+            <div style="flex-grow: 1;">
+                <h1 class="title">
+                    Hello, {{ request.user.username }}
+                </h1>
+                <h2 class="subtitle">
+                    I hope you are having a great day!
+                </h2>
+            </div>
+
+            <div style="max-width: 100px; max-height: 100px; overflow: hidden; border-radius: 50%;">
+                <img src="{% static 'images/lim_logo.png' %}" alt="Logo" style="width: 100%; height: auto;">
+            </div>
+
+        </div>
+    </div>
+</section>
+
+                <br>
+                {% block content %}
+                <div class="columns is-multiline">
+<div class="column is-12-tablet is-3-desktop is-3-widescreen">
+<div class="notification is-link has-text">
+    <p class="title is-4">Total Students</p>
+<p class="title is-1">{{ total_students}}</p>
+
+</div>
+</div>
+                    <div class="column is-12-tablet is-3-desktop is-3-widescreen">
+<div class="notification is-dark has-text">
+    <p class="title is-4">Total Courses</p>
+<p class="title is-1">{{ total_courses}}</p>
+
+</div>
+</div>
+                      <div class="column is-12-tablet is-3-desktop is-3-widescreen">
+<div class="notification is-info has-text">
+    <p class="title is-4">Act Semester</p>
+<p class="title is-1">{{ total_active_semester}}</p>
+
+</div>
+</div>
+                   
+                    <div class="column is-12-tablet is-3-desktop is-3-widescreen">
+<div class="notification is-danger has-text">
+    <p class="title is-4">Lecturers</p>
+<p class="title is-1">{{ total_lecturers}}</p>
+
+</div>
+</div>
+        
+                    <div class="column is-12-tablet is-3-desktop is-3-widescreen">
+<div class="notification is-danger has-text">
+    <p class="title is-4">Total Issues</p>
+<p class="title is-1">{{ total_issues}}</p>
+
+</div>
+</div>
+                    <div class="column is-12-tablet is-3-desktop is-3-widescreen">
+<div class="notification is-link has-text">
+    <p class="title is-4">Pend Issues</p>
+<p class="title is-1">{{ pending_issues}}</p>
+
+</div>
+</div>
+                    <div class="column is-12-tablet is-3-desktop is-3-widescreen">
+<div class="notification is-primary has-text">
+    <p class="title is-4">Solved Issues</p>
+<p class="title is-1">{{ solved_issues}}</p>
+
+</div>
+</div>
+        <div class="column is-12-tablet is-3-desktop is-3-widescreen">
+<div class="notification is-warning has-text">
+    <p class="title is-4">Unsol Issues</p>
+<p class="title is-1">{{ unsolved_issues }}</p>
+
+</div>
+</div>
+        
+        
+        
+                </div>
+                {% endblock content %}
+                
+                   
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br>
+      <br><br>
+ {% block footer %}
+<div class="columns">
+    <!-- Bar Chart Column - Total Issues by Courses -->
+    <div class="column is-6">
+        <div class="card">
+            <header class="card-header">
+                <p class="card-header-title">
+                    Total Issues by Courses
+                </p>
+            </header>
+            <div class="card-content">
+                <canvas id="barChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bar Chart Column - Distribution of Issues -->
+    <div class="column is-6">
+        <div class="card">
+            <header class="card-header">
+                <p class="card-header-title">
+                    Distribution of Issues
+                </p>
+            </header>
+            <div class="card-content">
+                <canvas id="issueBarChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+     <div class="columns">
+    <!-- Categories of Issues Column -->
+    <div class="column is-6">
+        <div class="card">
+            <header class="card-header">
+                <p class="card-header-title">
+                    Categories of Issues
+                </p>
+            </header>
+            <div class="card-content">
+                <canvas id="categorychart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+
+<div class="column is-6">
+        <div class="content">
+            <table class="table is-fullwidth is-striped">
+                <p class="title" style="border-radius: 25px; background-color: #5B86E5; color: #efefef; text-align: center">Recent Issues</p>
+                <tbody>
+                    {% for all_issue in all_issues %}
+                    <tr>
+                        <td width="5%"><i class="fa fa-bell-o"></i></td>
+                        <td>{{ all_issue.title }}</td>
+                        <td class="level-right"><a class="button is-medium is-primary" href="{{ all_issue.get_absolute_url }}" style="font-weight: bold; font-size: 16px;">View Issues</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Bar Chart - Total Issues by Courses
+        var ctx = document.getElementById('barChart').getContext('2d');
+        var barChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: {{ bar_chart_data.course_labels|safe }},
+                datasets: [{
+                    label: 'Total Issues by Courses',
+                    data: {{ bar_chart_data.course_data|safe }},
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Bar Chart - Distribution of Issues
+        var ctx2 = document.getElementById('issueBarChart').getContext('2d');
+        var issueBarChart = new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: ['Pending', 'Solved', 'Unsolved', 'Total'],
+                datasets: [{
+                    label: 'Number of Issues',
+                    data: {{ bar_chart_data.data|safe }},
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        
+        
+        var ctx3 = document.getElementById('categorychart').getContext('2d');
+        var categorychart = new Chart(ctx3, {
+            type: 'bar',
+            data: {
+                labels: ['Travel', 'Fees', 'Exam', 'Medical', 'Drugs', 'Others'],
+                datasets: [{
+                    label: 'Categories of Issues',
+                    data: {{ category_barchart.data|safe }},
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(24, 100, 100, 67)',
+                        'rgba(34, 500, 100, 67)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+</script>
+{% endblock footer %}
+
+
+ <footer id="footer" data-aos="fade-up" data-aos-duration="1500" class="section">
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="column is-half">
+                <div class="copyright has-text-centered">
+                    &copy; Copyright 2024 <strong>Limkokwing University of Creative Technology Sierra Leone</strong>. All Rights Reserved
+                </div>
+                <div class="credit has-text-centered">
+                    Developed By: <a href="#"><span>Alusine T. Lavalie - BBIT - 905003156 </span></a>
+                </div>
+                <div class="credit has-text-centered">
+                    Email: <a href="#"><span> alusinelavalie80@gmail.com </span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Add AOS JavaScript for fade-up animation -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js'></script>
+<script  src=".{% static 'js/table.js' %}"></script>
+
+
+    <script async type="text/javascript" src="{% static 'js/admin.js' %}"></script>
+</body>
+
+</html>

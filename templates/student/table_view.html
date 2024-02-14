@@ -1,0 +1,54 @@
+{% extends 'admin/dashboard.html' %}
+{% load static %}
+{% block content %}
+
+    
+
+<div class="box cta">
+<div class="columns is-mobile is-centered">
+    <div class="field is-grouped is-grouped-multiline">
+       <div class="control">
+           <a href="{% url 'class_index' %}">
+    <button class="button is-link is-medium">All Classes</button>
+       </a>
+</div>
+        
+        <div class="control">
+           <a href="{% url 'class_create' %}">
+    <button class="button is-link is-medium">Create Class</button>
+       </a>
+</div>
+       
+        
+    </div>
+</div>
+</div>
+  <section class="container">
+    <div class="columns is-multiline">
+        {% for class_instance, students in classes_with_students %}
+            <div class="column is-4"> <!-- Adjust the column size as needed -->
+                <article class="message is-info">
+                    <div class="message-header">
+                        <p>{{ class_instance.name }}</p>
+                        <button class="delete" aria-label="delete"></button>
+                    </div>
+                    <div class="message-body">
+                        {% for student in students %}
+                            <div class="board-item">
+                                <div class="board-item-content"><span>{{ student.first_name }} {{ student.last_name }}</span></div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </article>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+
+
+    {% block footer %}
+        {% endblock %}
+   
+
+{% endblock content %}

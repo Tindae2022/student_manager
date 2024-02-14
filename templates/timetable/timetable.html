@@ -1,0 +1,73 @@
+{% extends 'admin/dashboard.html' %}
+{% load static %}
+{% block content %}
+    
+    <section class="section">
+    <div class="container">
+        <h1 class="title has-text-centered">{{ class_instance.name }} Timetable</h1>
+
+        <div class="box">
+            <!-- Display Class Details -->
+            <div class="content">
+                
+                {% if class_instance.timetable_set.all %}
+                    <h1 class="title is-bold" style="text-align: center;">Semester: {{ class_instance.timetable_set.first.semester.name }}</h1>
+                   <div class="buttons">
+                        
+                        
+                       
+                        <a href="{% url 'class_index'  %}" class="button is-dark">Back</a>
+                    </div> 
+                {% else %}
+                        <p><strong></strong> No timetable available</p>
+                    {% endif %}
+                
+            </div>
+
+            <!-- Display Class Timetable -->
+            
+            <table class="table is-bordered is-fullwidth">
+                <thead>
+                    <tr>
+                         <th>Time</th>
+                        
+                        <th>Day</th>
+                        <th>Module</th>
+                        <th>Room</th>
+                        <th>Lecturer</th>
+                        <th>Action</th>
+                        
+                       
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for timetable in timetables %}
+                        <tr>
+                            <td>{{ timetable.start_time }} - {{ timetable.end_time }}</td>
+</td>
+                           
+                            <td>{{ timetable.day }}</td>
+                            <td>{{ timetable.module.name }}</td>
+                            <td>{{ timetable.room_name.name }}</td>
+                            <td>{{ timetable.lecturer.name }}</td>
+                         <td>
+                            <a href="{% url 'delete_timetable' timetable.pk %}" style="color: red;">
+                                <i class="fa-solid fa-delete-left"></i>
+                            </a>
+                            <span>&nbsp;&nbsp;</span>
+                            <a href="{% url 'update_timetable' timetable.pk %}" style="color: burlywood;">
+                                <i class="fa-solid fa-edit"></i>
+                            </a>
+                            
+                        </td>
+                            
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block footer %}
+{% endblock %}

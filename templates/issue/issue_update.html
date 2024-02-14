@@ -1,0 +1,117 @@
+{% extends 'admin/dashboard.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container mt-3 form" style="width: 95%; font-size: 14px">
+        <form method="POST" action="{% url 'issue_update' pk=update_issues.pk %}" class="card p-3 mt-5" autocomplete="off" enctype="multipart/form-data">
+           <h1 class="title is-3 has-text-centered">{{ title }}</h1>
+            {% csrf_token %}
+
+            <fieldset>
+                <legend style="background-color: #4CAF50; color: white; padding: 5px; font-weight: bold;">Student Information</legend>
+                <div class="field is-horizontal">
+                    <div class="field-label">
+                        <label class="label">Student</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                {{ form.student }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field is-horizontal">
+                    <div class="field-label">
+                        <label class="label">Module</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                {{ form.module }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend style="background-color: #4CAF50; color: white; padding: 5px; font-weight: bold;">Issue Details</legend>
+                <div class="field is-horizontal">
+                    <div class="field-label">
+                        <label class="label">Title</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                {{ form.title }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-horizontal">
+                    <div class="field-label">
+                        <label class="label">Category</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                {{ form.category }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-horizontal">
+                    <div class="field-label">
+                        <label class="label">Description</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                {{ form.description }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+
+                <div class="field is-horizontal">
+                    <div class="field-label">
+                        <label class="label">Status</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                {{ form.status }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field is-horizontal">
+                    <div class="field-label">
+                        <label class="label">Evidence Picture</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                {{ form.evidence_picture }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <button type="submit" class="button is-info">Submit</button>
+            </fieldset>
+
+            <!-- Add more fieldsets as needed -->
+            
+
+        </form>
+
+        <!-- MESSAGE FROM BACKEND -->
+    </div>
+{% endblock content %}
+{% block footer %}
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends 'admin/dashboard.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container mt-3 form" style="width: 95%; font-size: 14px">
+        <form method="POST" action="{% url 'student_update' pk=student.pk %}" class="card p-3 mt-5" autocomplete="off" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="field">
+                <label class="label">First Name</label>
+                <div class="control">
+                    {{ form.first_name }}
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Last Name</label>
+                <div class="control">
+                    {{ form.last_name }}
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Student ID</label>
+                <div class="control">
+                    {{ form.student_id }}
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Email</label>
+                <div class="control">
+                    {{ form.email }}
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Semester</label>
+                <div class="control">
+                    {{ form.semester }}
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Course</label>
+                <div class="control">
+                    {{ form.course }}
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Department</label>
+                <div class="control">
+                    {{ form.shortCode }}
+                </div>
+            </div>
+
+
+            <div class="field">
+                <label class="label">Student Class</label>
+                <div class="control">
+                    {{ form.student_class }}
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Class Rep</label>
+                <div class="control">
+                    {{ form.class_rep }}
+                </div>
+            </div>
+
+
+            <div class="field">
+                <label class="label">Image</label>
+                <div class="control">
+                    {{ form.image }}
+                </div>
+            </div>
+
+            <div class="field is-grouped">
+                <div class="control">
+                    <button type="submit" class="button is-primary">Submit</button>
+                </div>
+            </div>
+        </form>
+
+        
+    </div>
+{% endblock content %}
+{% block footer %}
+{% endblock %}

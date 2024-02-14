@@ -1,0 +1,40 @@
+{% extends 'admin/dashboard.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container mt-3 form" style="width: 95%; font-size: 14px">
+        <form method="POST" action="{% url 'semester_update' object.pk %}" class="card p-3 mt-5" autocomplete="off" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="field">
+                <label class="label">Semester No.</label>
+                <div class="control">
+                    {{ form.name }}
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Status</label>
+                <div class="control">
+                    {{ form.status }}
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Classes</label>
+                <div class="control">
+                    {{ form.classes }}
+                </div>
+            </div>
+
+            <div class="field is-grouped">
+                <div class="control">
+                    <button type="submit" class="button is-primary">Submit</button>
+                </div>
+            </div>
+        </form>
+
+        
+    </div>
+{% endblock content %}
+{% block footer %}
+{% endblock %}

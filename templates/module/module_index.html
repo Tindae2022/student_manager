@@ -1,0 +1,85 @@
+{% extends 'admin/dashboard.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="column is-12-tablet is-3-desktop is-3-widescreen">
+        <div class="columns">
+            <!-- List of Students -->
+            <div class="column is-full">
+                <div class="notification is-danger has-text">
+                    <p class="text is-danger is-medium" style="font-weight: bold;">{{ all_modules }} </p>
+                </div>
+            </div>
+
+            <!-- Add New Student Form -->
+            <div class="column is-full">
+                <div class="field" style="text-align: right;">
+                    <div class="control">
+                        <a href="{% url 'module_create' %}" class="button is-link is-medium">
+                            <i class="fas fa-plus"></i> Add Module
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form method="post" action="{% url 'module_search' %}" class="field is-horizontal">
+        {% csrf_token %}
+        <div class="field-body">
+            <div class="field is-grouped is-grouped-centered">
+                <div class="control">
+                    <input class="input" type="text" id="search_term" name="search_term" placeholder="enter module" />
+                </div>
+                <div class="control">
+                    <button type="submit" class="button is-info">Search</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    {% if module_index %}
+        <table class="table is-bordered is-fullwidth">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Name</th>
+                    <th>Module Code</th>
+                    <th>Course</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for module in module_index %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ module.name }}</td>
+                        <td>{{ module.code }}</td>
+                        <td>{{ module.course }}</td>
+                        <td>{{ module.status }}</td>
+                        <td>
+                            <a href="{% url 'module_delete' module.pk %}" style="color: red;">
+                                <i class="fa-solid fa-delete-left"></i>
+                            </a>
+                            <span>&nbsp;&nbsp;</span>
+                            <a href="{% url 'module_update' module.pk %}" style="color: burlywood;">
+                                <i class="fa-solid fa-edit"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+   
+        
+    {% else %}
+    <p class="notification is-warning">
+        No results found for "{{ search_term }}". Please try a different search term or consider adding a new module.
+    
+{% endif %}
+
+{% endblock content %}
+
+{% block footer %}
+{% endblock %}

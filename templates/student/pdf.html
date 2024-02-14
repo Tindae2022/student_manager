@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Issues Details</title>
+
+    <!-- Include your custom styles -->
+    <link rel="stylesheet" href="{% static 'css/pdf_styles.css' %}">
+</head>
+
+<body>
+    <header>
+        <img src="{% static 'images/lim_logo.png' %}">
+        <h1>Student Issues Details</h1>
+    </header>
+
+    <main>
+        <section class="student-details">
+            <div class="logo-container">
+            
+        </div>
+           <h2 style="background-color: #0F1D38; color: white; font-weight: bold; margin-right: 30px; text-align: center">Student Details</h2>
+
+          <div class="card">
+    <div class="card-content">
+        <div class="content" style="display: flex; align-items: center;">
+            <div class="details" style="flex: 1;">
+                <p><strong>Name:</strong> {{ student.first_name }} {{ student.last_name }}</p>
+                <p><strong>Student ID:</strong> {{ student.student_id }}</p>
+                <p><strong>Course:</strong> {{ student.course }}</p>
+                 <p><strong>Department:</strong> {{ student.shortCode }}</p>
+                <p><strong>Semester:</strong> {{ student.semester }}</p>
+                <p><strong>Class:</strong> {{ student.student_class }}</p>
+                 <p><strong>Class Rep:</strong> {{ student.class_rep }}</p>
+                <p><strong>Email:</strong> {{ student.email }}</p>
+            </div>
+            {% if student.image %}
+                <img src="{{ student.image.url }}" style="max-width: 100%; max-height: 200px; border-radius: 50%; margin-left: 20px;">
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+        </section>
+
+        <section class="issue-details">
+            <h2 style="background-color: #0F1D38; color: white; font-weight: bold; margin-right: 30px; text-align: center">Issue Details</h2>
+            {% for issue in student.issue_set.all %}
+            <div class="issue">
+                <p style="background-color: #0F1D38; color: white; font-weight: bold; margin-right: 30px; text-align: center">
+    <strong>Issue {{ forloop.counter }}:</strong> {{ issue.title }}
+</p>
+                <p><strong>Category:</strong> {{ issue.category }}</p>
+                <p><strong>Status:</strong> {{ issue.status }}</p>
+                <p><strong>Date Reported:</strong> {{ issue.date_reported|date:'M. d, Y, h:i A' }}</p>
+                <p><strong>Description:</strong> {{ issue.description }}</p>
+            {% if issue.evidence_picture %}
+    <div style="margin-top: 10px; text-align: center;">
+        <img src="{{ issue.evidence_picture.url }}" style="max-width: 100%; max-height: 200px; border-radius: 8px;">
+    </div>
+{% endif %}
+            {% endfor %}
+        <br>
+         <p><strong>Signature: .............................</strong> </p>
+        </section>
+    </main>
+</body>
+
+</html>

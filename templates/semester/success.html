@@ -1,0 +1,17 @@
+
+{% extends 'admin/dashboard.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Registration Successful!</h4>
+            <p>A new semester has been successfully registered. Thank you!</p>
+            
+        </div>
+
+        <a href="{% url 'semester_index' %}" class="button is-primary">OK</a>
+    </div>
+{% endblock %}
+{% block footer %}
+{% endblock %}

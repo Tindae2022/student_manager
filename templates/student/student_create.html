@@ -1,0 +1,20 @@
+{% extends 'admin/dashboard.html' %}
+{% load crispy_forms_filters %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="container mt-3 form" style="width: 95%; font-size: 14px">
+   <form method="POST" action="{% url 'student_create' %}" class="card p-3 mt-5" autocomplete="off" enctype="multipart/form-data">
+       {{ form|crispy }}
+    {% csrf_token %}
+    
+    <button type="submit" class="button is-info">Submit</button>
+</form>
+
+    <!---- MESSAGE FROM BACKEND --->
+    
+    
+    </div>
+{% endblock content %}
+{% block footer %}
+{% endblock %}

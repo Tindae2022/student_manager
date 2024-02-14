@@ -1,0 +1,91 @@
+{% extends 'admin/dashboard.html' %}
+{% load static %}
+{% block content %}
+    <div class="column is-12-tablet is-3-desktop is-3-widescreen">
+    <div class="columns">
+        <!-- List of Students -->
+        <div class="column is-full">
+            <div class="notification is-danger has-text">
+                <p class="text is-danger is-medium" style="font-weight: bold;">{{ titles }} </p>
+            </div>
+        </div>
+
+        <!-- Add New Student Form -->
+        <div class="column is-full">
+    <div class="field" style="text-align: right;">
+        <div class="control">
+            <a href="{% url 'issue_create' %}" class="button is-dark is-medium">
+               <i class="fas fa-plus"></i> New Issue
+            </a>
+        </div>
+    </div>
+            <div class="control">
+                        <a href="{% url 'issue_import' %}" class="button is-dark is-medium">
+                            <i class="fas fa-arrow-circle-down"> </i>  Import Issues
+                        </a>
+                    </div>
+</div>
+
+
+    </div>
+</div>
+
+   <form method="post" action="#" class="field is-horizontal">
+    {% csrf_token %}
+
+    <div class="field-body">
+    <div class="field is-grouped is-grouped-centered">
+        
+        <div class="control">
+            <input class="input" type="text" id="search_term" name="search_term" placeholder="enter detail" />
+        </div>
+        <div class="control">
+            <button type="submit" class="button is-info">Search</button>
+        </div>
+    </div>
+</div>
+
+
+</form>
+
+    
+    {% if issues %}
+    <table class="table is-bordered is-fullwidth">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Issue Title</th>
+                <th>Module</th>
+                <th>Status</th>
+                <th>Category</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for issue in issues %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ issue.title  }}</td>
+                    <td>{{ issue.module }}</td>
+                    <td>{{ issue.status }}</td>
+                    <td>{{ issue.category }}</td>
+                    <td>
+                     <a href="{{ issue.get_absolute_url }}" class="button is-primary">Read More</a>
+
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p class="notification is-warning">
+    No results found for "{{ search_term }}". Please try a different search term or consider adding a new student.
+</p>
+
+{% endif %}
+
+    
+{% endblock content %}
+
+{% block footer %}
+{% endblock %}

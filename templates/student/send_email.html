@@ -1,0 +1,39 @@
+{% extends 'admin/dashboard.html' %}
+{% block content %}
+    <div class="container mt-3">
+        <h2 class="title is-3">Send Email</h2>
+        <form method="post" action="{% url 'send_email' pk=student.pk %}" class="box">
+
+
+
+            {% csrf_token %}
+
+            <div class="field">
+                <label class="label">Subject</label>
+                <div class="control">
+                    {{ form.subject }}
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Message</label>
+                <div class="control">
+                    {{ form.message }}
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Recipient</label>
+                <div class="control">
+                    {{ form.recipient }}
+                </div>
+            </div>
+
+            <div class="field is-grouped">
+                <div class="control">
+                    <button type="submit" class="button is-primary">Send Email</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

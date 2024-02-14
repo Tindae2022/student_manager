@@ -1,0 +1,158 @@
+{% extends 'admin/dashboard.html' %}
+{% load static %}
+
+{% block content %}
+   
+    <style>
+        /* Add the existing styles here */
+
+        .section {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .card {
+            width: 100%;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            background-color: #ffffff;
+            text-align: center;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: #3498db;
+            color: #ffffff;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .student-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto;
+            margin-bottom: 20px;
+        }
+
+        .student-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .student-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .student-info {
+            font-size: 16px;
+            color: #555555;
+        }
+
+ 
+        /* Your CSS styles for the PDF go here */
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+        .logo {
+            width: 100px; /* Adjust the width as needed */
+            height: auto;
+        }
+        .heading {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+ 
+    
+
+    <section class="section">
+    
+        <div class="container">
+        
+            <div class="card">
+               
+                <h2 class="title">{{ students }}</h2>
+                <div class="header">
+                    <div class="buttons">
+                        <a href="{% url 'pdf_view' student.pk %}" class="button is-link">Print Record</a>
+                        <a href="{% url 'student_delete' student.pk %}" class="button is-danger">Delete</a>
+                        <a href="{% url 'student_update' student.pk %}" class="button is-warning">Edit</a>
+                        <a href="{% url 'student_index' %}" class="button is-dark">Back</a>
+                    </div>
+                     {% if student.image %}
+    <img src="{{ student.image.url }}" style="max-width: 100%; max-height: 200px; border-radius: 50%;">
+{% endif %}
+
+                </div>
+                <div class="student-name">{{ student.first_name }} {{ student.last_name }}</div>
+                <div class="student-info">
+                    <p><strong>Admission Number:</strong> {{ student.student_id }}</p>
+                    <p><strong>Course:</strong> {{ student.course }}</p>
+                     <p><strong>Department:</strong> {{ student.shortCode }}</p>
+                    <p><strong>Semester:</strong> {{ student.semester }}</p>
+                    <p><strong>Email:</strong> {{ student.email }}</p>
+                    <p><strong>Class:</strong> {{ student.student_class }}</p>
+                    <p><strong>Class Rep:</strong> {{ student.class_rep }}</p>
+                </div>
+            </div>
+
+            <!-- Student Issues Section -->
+            <div class="card">
+               <h2 class="title">Student Issues</h2>
+
+                {% if issues %}
+                    <ul>
+                        {% for issue in issues %}
+                            <li>
+                               <p><strong>{{ issue.title }}</strong></p>
+                                <p><strong>Status: </strong>{{ issue.status }}</p>
+                            
+                                <p><strong>Date Reported: </strong>{{ issue.date_reported }}</p>
+                           <p><strong>Description: </strong>{{ issue.description }}</p>
+                                {% if issue.evidence_picture %}
+                                   <img src="{{ issue.evidence_picture.url }}" alt="{{ issue.title }} Evidence" style="max-width: 100%; max-height: 200px;">
+
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No issues reported.</p>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}
+{% block footer %}
+{% endblock %}
