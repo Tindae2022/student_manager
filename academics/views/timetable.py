@@ -3,7 +3,6 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView
 from academics.models import TimeTable
 from academics.forms import TimeTableForm
-from django.views import View
 
 
 class TimetableCreateView(CreateView):

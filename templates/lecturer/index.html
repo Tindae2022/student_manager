@@ -12,7 +12,15 @@
             </div>
         </div>
     </div>
-
+<div class="column is-full">
+                <div class="field" style="text-align: right;">
+                    <div class="control">
+                        <a href="{% url 'lecturer_create' %}" class="button is-dark is-medium">
+                            <i class="fas fa-plus"></i>  Add New Lecturer
+                        </a>
+                    </div>
+                </div>
+            </div>
     <form method="get" action="#" class="field has-addons">
     <div class="control" style="font-size: medium">
         {{ search_form.search_term }}
@@ -40,11 +48,11 @@
                         <td>{{ lecturer.name }}</td>
                         
                         <td>
-                            <a href="#" style="color: red;">
+                            <a href="{% url 'lecturer_delete' lecturer.pk %}" style="color: red;">
                                 <i class="fa-solid fa-delete-left"></i>
                             </a>
                             <span>&nbsp;&nbsp;</span>
-                            <a href="#" style="color: burlywood;">
+                            <a href="{% url 'lecturer_update' lecturer.pk %}" style="color: burlywood;">
                                 <i class="fa-solid fa-edit"></i>
                             </a>
                             

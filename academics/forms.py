@@ -139,7 +139,7 @@ class LecturerUpdateForm(forms.ModelForm):
         self.fields['name'].label = 'Lecturer''s Name'
         self.fields['modules'].label = 'Modules'
 
-        self.fields['name'].widgets.attrs.update({'placeholder': 'enter lecturer full name'})
+        self.fields['name'].widget.attrs.update({'placeholder': 'enter lecturer full name'})
 
     class Meta:
         model = Lecturer

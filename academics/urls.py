@@ -87,5 +87,17 @@ urlpatterns = [
     path('timetable/delete/', timetable.delete_success, name='timetable_delete_success'),
 
     path('lecturer/', lecturers.LecturerListView.as_view(), name='lecturer_index'),
+    path('lecturer/create/success/', lecturers.LecturerCreateSuccessTemplateView.as_view(),
+         name='lecturer_create_success'),
+
+    path('lecturer/<int:pk>/update/', lecturers.LecturerUpdateView.as_view(), name='lecturer_update'),
+
+    path('lecturer/delete/success/', lecturers.LecturerDeleteSuccessTemplateView.as_view(),
+         name='lecturer_delete_success'),
+
+    path('lecturer/create/', lecturers.LecturerCreateView.as_view(), name='lecturer_create'),
+
+    path('lecturer/<int:pk>/delete/', lecturers.LecturerDeleteView.as_view(), name='lecturer_delete'),
+
 
 ]
