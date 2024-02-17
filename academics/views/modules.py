@@ -11,7 +11,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class ModuleListView(LoginRequiredMixin, ListView):
     model = Module
     template_name = 'module/module_index.html'
-    context_object_name = 'module_index'
+    context_object_name = 'modules'
+    paginate_by = 3
 
     def get_queryset(self):
         return Module.objects.all_modules()
@@ -45,8 +46,9 @@ class ModuleDeleteView(LoginRequiredMixin, DeleteView):
     context_object_name = 'module'
 
 
-class ModuleSearchView(LoginRequiredMixin, View):
+class ModuleSearchView(LoginRequiredMixin, ListView):
     template_name = 'module/module_index.html'
+    model = Module
 
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name)

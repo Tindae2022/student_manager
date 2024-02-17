@@ -1,16 +1,13 @@
-<!-- registration_success.html -->
-
 {% extends 'admin/dashboard.html' %}
 {% load static %}
 
 {% block content %}
     <div class="container mt-4">
         <div class="alert alert-success" role="alert">
-            <h4 class="alert-heading">Registration Successful!</h4>
-            <p>The Course has been successfully registered. Thank you!</p>
+            <h4 class="alert-heading">Delete Successful!</h4>
+            <p>The Course has been successfully deleted. Thank you!</p>
             
         </div>
-
         <a href="{% url 'course_index' %}" class="button is-primary">OK</a>
     </div>
 {% endblock %}

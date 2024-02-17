@@ -14,7 +14,7 @@
     </div>
 
     <form method="get" action="{% url 'class_index' %}" class="field has-addons">
-    <div class="control" style="font-size: medium">
+    <div class="control" style="font-size: medium;">
         {{ search_form.search_term }}
     </div>
     <div class="control">
@@ -56,6 +56,7 @@
                 {% endfor %}
             </tbody>
         </table>
+        {% include "pagination.html" with page=page_obj %}
     {% else %}
         <p class="notification is-warning">
             No results found for "{{ search_form.cleaned_data.search_term }}". Please try a different search term or consider adding a new class.

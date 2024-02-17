@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin - Free Bulma template</title>
+    <title>{% block title %}Year Leader Dashboard {% endblock %}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
     <!-- Bulma Version 0.9.0-->
@@ -64,15 +64,35 @@
         .dropdown:hover .dropdown-content {
             display: block;
         }
+         body {
+            background-color: #fff;
+            color: #000;
+        }
+
+        /* Dark theme */
+        body.dark-mode {
+            background-color: black;
+            color: #fff;
+        }
+
+        /* Style for the toggle button */
+        #theme-toggle {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 999;
+            cursor: pointer;
+        }
+        
     </style>
 
 
 </head>
 
-<body>
-
+<body> 
+ 
     <!-- START NAV -->
-    <nav class="navbar is-white">
+    <nav class="navbar is-dark">
         <div class="container">
             <div class="navbar-brand">
                 <a class="navbar-item brand-text" href="#">
@@ -92,12 +112,7 @@
                     <a class="navbar-item" href="{% url 'issue_index' %}">
            Issues
           </a>
-                    <a class="navbar-item" href="#">
-            Blog
-          </a>
-                    <a class="navbar-item" href="#">
-            News
-          </a>
+                 
                 
                  
                 </div>
@@ -106,8 +121,13 @@
         </div>
         <div class="navbar-end" style="margin-left: auto;">
     <a class="navbar-item" href="{% url 'logout' %}">
-        Log Out
+        Log Out 
+        
     </a>
+            <span>
+         <button id="theme-toggle" onclick="toggleDarkMode()">Change Theme</button>
+    </span>
+           
 </div>
     </nav>
     <!-- END NAV -->
@@ -146,7 +166,7 @@
 </div>
                         
                        
-                        <li><a href="#">Appraisal</a></li>
+                       
                          
                     </ul>
                    
@@ -161,7 +181,6 @@
     </ul>
             </div>
             <div class="column is-9">
-                
                 <section class="hero is-info welcome is-small">
     <div class="hero-body">
         <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
@@ -185,6 +204,7 @@
 
                 <br>
                 {% block content %}
+                    
                 <div class="columns is-multiline">
 <div class="column is-12-tablet is-3-desktop is-3-widescreen">
 <div class="notification is-link has-text">
@@ -442,6 +462,21 @@
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js'></script>
 <script  src=".{% static 'js/table.js' %}"></script>
+    <script>
+        // Function to toggle dark mode
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            // Save user preference
+            const isDarkModeEnabled = document.body.classList.contains('dark-mode');
+            localStorage.setItem('dark-mode', isDarkModeEnabled ? 'enabled' : 'disabled');
+        }
+
+        // Check for user preference or previous setting
+        if (localStorage.getItem('dark-mode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+        }
+    </script>
+
 
 
     <script async type="text/javascript" src="{% static 'js/admin.js' %}"></script>

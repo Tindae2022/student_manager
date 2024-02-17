@@ -3,7 +3,7 @@ from django.db import IntegrityError
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from django.views.generic import (ListView, DetailView,
-                                  DeleteView, CreateView, UpdateView)
+                                  DeleteView, CreateView, UpdateView, TemplateView)
 from weasyprint import HTML
 
 from academics.models import Student, Class, Course, Semester
@@ -16,18 +16,21 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 from itertools import groupby
 from operator import attrgetter
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
 import csv
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 
 
-class StudentListView(LoginRequiredMixin, ListView):
+class StudentListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Student
     template_name = 'student/student_index.html'
-    context_object_name = 'student_index'
+    context_object_name = 'students'
     ordering = ['-first_name']
+    paginate_by = 3
+    permission_required = 'academics.view_student'
+    login_url = '/login/'
 
     def get_queryset(self):
         return Student.objects.get_all_students()
@@ -59,21 +62,29 @@ class StudentCreateView(LoginRequiredMixin, CreateView):
     template_name = 'student/student_create.html'
 
     def get_success_url(self):
-        return reverse_lazy('student_index')
+        return reverse_lazy('student_create_success')
+
+
+class StudentSuccessTemplateView(TemplateView):
+    template_name = 'student/success.html'
 
 
 class StudentUpdateView(LoginRequiredMixin, UpdateView):
     model = Student
     form_class = StudentUpdateForm
     template_name = 'student/student_update.html'
-    success_url = reverse_lazy('student_index')
+    success_url = reverse_lazy('student_create_success')
 
 
 class StudentDeleteView(LoginRequiredMixin, DeleteView):
     model = Student
     template_name = 'student/student_confirm_delete.html'
-    success_url = reverse_lazy('student_index')
+    success_url = reverse_lazy('student_delete_success')
     context_object_name = 'student'
+
+
+class StudentDeleteSuccessTemplateView(TemplateView):
+    template_name = 'student/delete_success.html'
 
 
 class StudentSearchView(LoginRequiredMixin, ListView):

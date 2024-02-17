@@ -1,0 +1,33 @@
+<div class="pagination is-centered" role="navigation" aria-label="pagination">
+    <ul class="pagination-list">
+        {% if page.has_previous %}
+            <li>
+                <a class="pagination-link" href="?page={{ page.previous_page_number }}" aria-label="Goto page {{ page.previous_page_number }}">
+                    Previous
+                </a>
+            </li>
+        {% endif %}
+
+        <li>
+            <span class="pagination-ellipsis">&hellip;</span>
+        </li>
+
+        <li>
+            <span class="pagination-link is-current" aria-current="page">
+                Page {{ page.number }} of {{ page.paginator.num_pages }}
+            </span>
+        </li>
+
+        <li>
+            <span class="pagination-ellipsis">&hellip;</span>
+        </li>
+
+        {% if page.has_next %}
+            <li>
+                <a class="pagination-link" href="?page={{ page.next_page_number }}" aria-label="Goto page {{ page.next_page_number }}">
+                    Next
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</div>

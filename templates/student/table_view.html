@@ -1,5 +1,6 @@
 {% extends 'admin/dashboard.html' %}
 {% load static %}
+{% block title %}Class Table {% endblock %}
 {% block content %}
 
     
@@ -32,14 +33,18 @@
                         <p>{{ class_instance.name }}</p>
                         <button class="delete" aria-label="delete"></button>
                     </div>
+               
                     <div class="message-body">
                         {% for student in students %}
                             <div class="board-item">
                                 <div class="board-item-content"><span>{{ student.first_name }} {{ student.last_name }}</span></div>
                             </div>
                         {% endfor %}
+                    
                     </div>
+                
                 </article>
+            
             </div>
         {% endfor %}
     </div>

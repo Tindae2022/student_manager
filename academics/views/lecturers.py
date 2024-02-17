@@ -8,6 +8,7 @@ class LecturerListView(ListView):
     model = Lecturer
     template_name = 'lecturer/index.html'
     context_object_name = 'lecturer_index'
+    paginate_by = 3
 
     def get_queryset(self):
         return Lecturer.objects.all_lecturers()

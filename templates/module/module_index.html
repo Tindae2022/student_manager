@@ -38,7 +38,7 @@
         </div>
     </form>
 
-    {% if module_index %}
+    {% if modules %}
         <table class="table is-bordered is-fullwidth">
             <thead>
                 <tr>
@@ -51,7 +51,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for module in module_index %}
+                {% for module in modules %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
                         <td>{{ module.name }}</td>
@@ -71,7 +71,7 @@
                 {% endfor %}
             </tbody>
         </table>
-   
+   {% include "pagination.html" with page=page_obj %}
         
     {% else %}
     <p class="notification is-warning">

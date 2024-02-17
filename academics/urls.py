@@ -99,5 +99,13 @@ urlpatterns = [
 
     path('lecturer/<int:pk>/delete/', lecturers.LecturerDeleteView.as_view(), name='lecturer_delete'),
 
+    path('student/create/success/', students.StudentSuccessTemplateView.as_view(), name='student_create_success'),
+
+    path('student/delete/success/', students.StudentDeleteSuccessTemplateView.as_view(), name='student_delete_success'),
+
+    path('course/create/success/', course.CourseSuccessTemplateView.as_view(), name='course_create_success'),
+
+    path('course/delete/success/', course.CourseDeleteSuccessTemplateView.as_view(), name='course_delete_success'),
+
 
 ]
