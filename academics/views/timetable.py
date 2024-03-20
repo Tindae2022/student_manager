@@ -3,9 +3,10 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView
 from academics.models import TimeTable
 from academics.forms import TimeTableForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class TimetableCreateView(CreateView):
+class TimetableCreateView(LoginRequiredMixin, CreateView):
     model = TimeTable
     template_name = 'timetable/create.html'
     form_class = TimeTableForm
@@ -14,7 +15,7 @@ class TimetableCreateView(CreateView):
         return reverse_lazy('dashboard')
 
 
-class TimetableUpdateView(UpdateView):
+class TimetableUpdateView(LoginRequiredMixin, UpdateView):
     model = TimeTable
     form_class = TimeTableForm
     template_name = 'timetable/update.html'
@@ -27,7 +28,7 @@ def register_success(request):
     return render(request, 'timetable/register_success.html')
 
 
-class TimetableDeleteView(DeleteView):
+class TimetableDeleteView(LoginRequiredMixin, DeleteView):
     model = TimeTable
     template_name = 'timetable/confirm_delete.html'
 

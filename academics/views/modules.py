@@ -12,7 +12,7 @@ class ModuleListView(LoginRequiredMixin, ListView):
     model = Module
     template_name = 'module/module_index.html'
     context_object_name = 'modules'
-    paginate_by = 3
+    paginate_by = 10
 
     def get_queryset(self):
         return Module.objects.all_modules()
