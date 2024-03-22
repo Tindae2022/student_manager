@@ -23,14 +23,12 @@ from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 
 
-class StudentListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class StudentListView(LoginRequiredMixin, ListView):
     model = Student
-    template_name = 'student/student_index.html'
+    template_name = 'student/index.html'
     context_object_name = 'students'
     ordering = ['-first_name']
-    paginate_by = 3
-    permission_required = 'academics.view_student'
-    login_url = '/login/'
+    paginate_by = 10
 
     def get_queryset(self):
         return Student.objects.get_all_students()
@@ -88,7 +86,7 @@ class StudentDeleteSuccessTemplateView(TemplateView):
 
 
 class StudentSearchView(LoginRequiredMixin, ListView):
-    template_name = 'student/student_index.html'
+    template_name = 'student/index.html'
     model = Student
 
     def get_context_data(self, **kwargs):

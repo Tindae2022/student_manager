@@ -344,3 +344,9 @@ class TimeTableForm(forms.ModelForm):
     class Meta:
         model = TimeTable
         fields = ['class_name', 'semester', 'day', 'module', 'room_name', 'lecturer', 'start_time', 'end_time']
+
+
+class ClassRoomForm(forms.ModelForm):
+    class Meta:
+        model = ClassRoom
+        fields = ['name']

@@ -4,7 +4,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
     <div class="container mt-3 form" style="width: 95%; font-size: 14px">
-   <form method="POST" action="{% url 'update_timetable' object.pk %}" class="card p-3 mt-5" autocomplete="off" enctype="multipart/form-data">
+   <form method="POST" action="{% url 'class_room_create' %}" class="card p-3 mt-5" autocomplete="off" enctype="multipart/form-data">
        {{ form|crispy }}
     {% csrf_token %}
     
@@ -16,5 +16,3 @@
     
     </div>
 {% endblock content %}
-{% block footer %}
-{% endblock %}

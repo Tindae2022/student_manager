@@ -8,6 +8,7 @@ from .views import classes
 from .views import semester
 from .views import timetable
 from .views import lecturers
+from .views import rooms
 
 urlpatterns = [
     path('year_leader/dashboard/', year_leader.dashboard, name='dashboard'),
@@ -104,6 +105,10 @@ urlpatterns = [
     path('student/delete/success/', students.StudentDeleteSuccessTemplateView.as_view(), name='student_delete_success'),
 
     path('course/create/success/', course.CourseSuccessTemplateView.as_view(), name='course_create_success'),
+
+    path('lecturer/timetable/<int:pk>/', lecturers.LecturerDetailView.as_view(), name='lecturer_timetable'),
+
+    path('class_room/create/', rooms.ClassRoomCreateView.as_view(), name='class_room_create'),
 
     path('course/delete/success/', course.CourseDeleteSuccessTemplateView.as_view(), name='course_delete_success'),
 

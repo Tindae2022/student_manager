@@ -12,12 +12,15 @@ from .forms import IssueForm, IssueUpdateForm
 from django.urls import reverse_lazy
 from academics.forms import CSVImportForm
 from academics.models import Student, Module
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 # Create your views here.
-class IssueListView(ListView):
+class IssueListView(LoginRequiredMixin, ListView):
     model = Issue
     template_name = 'issue/issue_index.html'
     context_object_name = 'issues'
+    paginate_by = 10
 
     def get_queryset(self):
         return Issue.objects.all_issues()
@@ -28,7 +31,7 @@ class IssueListView(ListView):
         return context
 
 
-class IssueCreateView(CreateView):
+class IssueCreateView(LoginRequiredMixin, CreateView):
     model = Issue
     template_name = 'issue/issue_create.html'
     form_class = IssueForm
@@ -43,7 +46,7 @@ class IssueCreateView(CreateView):
         return context
 
 
-class IssueDetailView(DetailView):
+class IssueDetailView(LoginRequiredMixin, DetailView):
     model = Issue
     template_name = 'issue/issue_detail.html'
     context_object_name = 'issues'
@@ -55,14 +58,14 @@ class IssueDetailView(DetailView):
         return context
 
 
-class IssueUpdateView(UpdateView):
+class IssueUpdateView(LoginRequiredMixin, UpdateView):
     model = Issue
     template_name = 'issue/issue_update.html'
     form_class = IssueUpdateForm
     context_object_name = 'update_issues'
 
 
-class IssueDeleteView(DeleteView):
+class IssueDeleteView(LoginRequiredMixin, DeleteView):
     model = Issue
     template_name = 'issue/issue_confirm_delete.html'
     context_object_name = 'delete_issue'
@@ -102,6 +105,8 @@ class ImportIssueCSVView(View):
                 return redirect('issue_index')
 
             except IntegrityError:
-                form.add_error('csv_file', 'Error Occurred! Please check your csv file for duplicate errors or incorrect field names.')
+                form.add_error('csv_file',
+                               'Error Occurred! Please check your csv file for duplicate errors '
+                               'or incorrect field names.')
 
         return render(request, self.template_name, {'form': form})

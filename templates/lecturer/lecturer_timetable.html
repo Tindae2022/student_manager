@@ -1,0 +1,42 @@
+{% extends 'core/index.html' %}
+{% load static %}
+{% block content %}
+    
+    <section class="section">
+    <div class="container">
+        <h1 class="title has-text-centered">{{ lecturer.name }}'s Timetable</h1>
+
+        <div class="box">
+            <!-- Display Class Details -->
+            
+            <!-- Display Class Timetable -->
+            {% if timetable_entries %}
+                <table class="table is-bordered is-fullwidth">
+                    <thead>
+                        <tr>
+                             <th>Time</th>
+                            <th>Day</th>
+                            <th>Module</th>
+                            <th>Room</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for timetable in timetable_entries %}
+                            <tr>
+                                <td>{{ timetable.start_time }} - {{ timetable.end_time }}</td>
+                                <td>{{ timetable.day }}</td>
+                                <td>{{ timetable.module.name }}</td>
+                                <td>{{ timetable.room_name.name }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No timetable available for {{ lecturer.name }}</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block footer %}
+{% endblock %}

@@ -1,19 +1,32 @@
-{% extends 'admin/dashboard.html' %}
+{% extends 'core/index.html' %}
 {% load static %}
 
 {% block content %}
-    <div class="column is-12-tablet is-3-desktop is-3-widescreen">
+    <div class="column is-12-tablet is-3-desktop is-3-widescreen" style="display: flex; margin: 20px;">
         <div class="columns">
             <!-- List of Students -->
             <div class="column is-full">
-                <div class="notification is-danger has-text">
-                    <p class="text is-danger is-medium" style="font-weight: bold;">{{ class_info }} </p>
+                <div class="notification is-info has-text">
+                    <p class="text is-white is-medium" style="font-weight: bold;">{{ class_info }} </p>
                 </div>
+                <div class="control">
+           <a href="{% url 'class_create' %}">
+    <button class="button is-info is-medium">Create New Class</button>
+       </a>
+                    <br>
+                    
+                    <br>
+                    <a href="#">
+    <button class="button is-info is-medium">Generate Timetable </button>
+       </a>
+</div>
             </div>
+             
         </div>
+    
     </div>
 
-    <form method="get" action="{% url 'class_index' %}" class="field has-addons">
+    <form method="get" action="{% url 'class_index' %}" class="field has-addons" style="display: flex; margin: 20px;">
     <div class="control" style="font-size: medium;">
         {{ search_form.search_term }}
     </div>
@@ -23,7 +36,7 @@
 </form>
 
     {% if class_index %}
-        <table class="table is-bordered is-fullwidth">
+        <table class="table is-bordered is-fullwidth" style="margin: 20px;">
             <thead>
                 <tr>
                     <th>No.</th>

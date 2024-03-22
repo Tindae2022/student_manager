@@ -423,10 +423,7 @@ class TimeTable(models.Model):
         if status.exists():
             raise ValidationError('This class is already occupied at the specified time.')
 
-
-def get_absolute_url(self):
-    # Extract relevant information from the related instance
-    class_id = self.class_name.pk
-    day = self.day
-
-    return reverse('class_timetable', kwargs={'class_id': class_id, 'day': day})
+    def get_absolute_url(self):
+        class_id = self.class_name.pk
+        day = self.day
+        return reverse('class_timetable', kwargs={'class_id': class_id, 'day': day})

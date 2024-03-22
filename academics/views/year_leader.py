@@ -65,4 +65,4 @@ def dashboard(request):
 
     }
 
-    return render(request, 'admin/dashboard.html', context)
+    return render(request, 'core/index.html', context)

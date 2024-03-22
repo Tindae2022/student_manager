@@ -1,10 +1,10 @@
 <!-- registration_success.html -->
-{% extends 'admin/dashboard.html' %}
+{% extends 'core/index.html' %}
 {% load static %}
 {% block title %}Student Record Deleted Successfully! {% endblock %}
 
 {% block content %}
-    <div class="container mt-4">
+    <div class="container mt-4" style="display: flex; margin: 20px;">
         <div class="alert alert-success" role="alert">
             <h4 class="alert-heading">Deleted Successful!</h4>
             <p>The student record has been successfully deleted. Thank you!</p>
@@ -14,6 +14,4 @@
 
         <a href="{% url 'student_index' %}" class="button is-primary">OK</a>
     </div>
-{% endblock %}
-{% block footer %}
 {% endblock %}

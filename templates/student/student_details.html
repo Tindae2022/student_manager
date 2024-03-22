@@ -1,4 +1,4 @@
-{% extends 'admin/dashboard.html' %}
+{% extends 'core/index.html' %}
 {% load static %}
 {% block title %}Student Details {% endblock %}
 
@@ -96,18 +96,17 @@
  
     
 
-    <section class="section">
+    <section class="section" style="display: flex; margin: 20px;">
     
-        <div class="container">
+        <div class="container" style="display: flex; margin: 20px;">
         
-            <div class="card">
+            <div class="card is-link">
                
                 <h2 class="title">{{ students }}</h2>
                 <div class="header">
                     <div class="buttons">
                         <a href="{% url 'pdf_view' student.pk %}" class="button is-link">Print Record</a>
-                        <a href="{% url 'student_delete' student.pk %}" class="button is-danger">Delete</a>
-                        <a href="{% url 'student_update' student.pk %}" class="button is-warning">Edit</a>
+                        
                         <a href="{% url 'student_index' %}" class="button is-dark">Back</a>
                     </div>
                      {% if student.image %}
@@ -115,7 +114,7 @@
 {% endif %}
 
                 </div>
-                <div class="student-name">{{ student.first_name }} {{ student.last_name }}</div>
+                <div class="student-name" >{{ student.first_name }} {{ student.last_name }}</div>
                 <div class="student-info">
                     <p><strong>Admission Number:</strong> {{ student.student_id }}</p>
                     <p><strong>Course:</strong> {{ student.course }}</p>

@@ -1,4 +1,4 @@
-{% extends 'admin/dashboard.html' %}
+{% extends 'core/index.html' %}
 {% load static %}
 
 {% block content %}
@@ -6,8 +6,8 @@
         <div class="columns">
             <!-- List of Students -->
             <div class="column is-full">
-                <div class="notification is-danger has-text">
-                    <p class="text is-danger is-medium" style="font-weight: bold;">{{ all_modules }} </p>
+                <div class="notification is-info has-text">
+                    <p class="text is-info is-medium" style="font-weight: bold;">{{ all_modules }} </p>
                 </div>
             </div>
 
@@ -15,7 +15,7 @@
             <div class="column is-full">
                 <div class="field" style="text-align: right;">
                     <div class="control">
-                        <a href="{% url 'module_create' %}" class="button is-link is-medium">
+                        <a href="{% url 'module_create' %}" class="button is-info is-medium">
                             <i class="fas fa-plus"></i> Add Module
                         </a>
                     </div>
@@ -39,7 +39,7 @@
     </form>
 
     {% if modules %}
-        <table class="table is-bordered is-fullwidth">
+        <table class="table is-bordered is-fullwidth" style="margin: 20px;">
             <thead>
                 <tr>
                     <th>No.</th>
@@ -59,12 +59,12 @@
                         <td>{{ module.course }}</td>
                         <td>{{ module.status }}</td>
                         <td>
-                            <a href="{% url 'module_delete' module.pk %}" style="color: red;">
-                                <i class="fa-solid fa-delete-left"></i>
+                            <a href="{% url 'module_delete' module.pk %}" class="button is-small is-danger jb-modal" data-target="sample-modal">
+                                 <span class="icon"><i class="fas fa-trash-alt"></i></span>
                             </a>
                             <span>&nbsp;&nbsp;</span>
-                            <a href="{% url 'module_update' module.pk %}" style="color: burlywood;">
-                                <i class="fa-solid fa-edit"></i>
+                            <a href="{% url 'module_update' module.pk %}" class="button is-small is-info">
+                              <span class="icon"><i class="fas fa-edit"></i></span>
                             </a>
                         </td>
                     </tr>

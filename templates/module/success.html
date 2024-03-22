@@ -1,10 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<!-- registration_success.html -->
 
-</body>
-</html>
+{% extends 'core/index.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Registration Successful!</h4>
+            <p>The Module has been successfully registered. Thank you!</p>
+            
+        </div>
+
+        <a href="{% url 'module_index' %}" class="button is-primary">OK</a>
+    </div>
+{% endblock %}
+{% block footer %}
+{% endblock %}

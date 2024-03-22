@@ -1,7 +1,7 @@
 {% extends 'core/index.html' %}
 {% load static %}
 {% block content %}
-    <section>
+<section style="display: flex; margin: 20px;">
 
   <div class="card">
   
@@ -11,24 +11,24 @@
       <header class="card-header">
     <p class="card-header-title">
         <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
-        {{ titles }}
+        {{ all_students }}
     </p>
-     <div class="card-header-icon">
-        <a href="{% url 'issue_create' %}" class="button is-info is-medium">
-            <i class="fas fa-plus is-white"></i> Add New Issue
+     <div class="card-header-icon" style="display: flex; margin: 20px;">
+        <a href="{% url 'student_create' %}" class="button is-medium" style="background-color: #349ce4; color: white; font-weight: bold;">
+            <i class="fas fa-plus"  style="color: white; font-weight: bold;"></i> Add New Student
         </a>
         <span class="is-size-7">&nbsp;</span> <!-- Small space -->
-        <a href="{% url 'issue_import' %}" class="button is-info is-medium">
-            <i class="fas fa-arrow-circle-down is-white"></i> Import Issue Records
+        <a href="{% url 'import_csv' %}" class="button is-medium" style="background-color: #349ce4;color: white; font-weight: bold;">
+            <i class="fas fa-arrow-circle-down" style="color: white; font-weight: bold;"></i> Import Student Records
         </a>
     </div>
 </header>
-    <form method="post" action="#" class="form">
+    <form method="post" action="{% url 'student_search' %}" class="form">
         {% csrf_token %}
         
         <div class="field is-grouped">
             <div class="control">
-                <input class="input" type="text" id="search_term" name="search_term" placeholder="Enter issue details" />
+                <input class="input" type="text" id="search_term" name="search_term" placeholder="Enter student details" />
             </div>
 
             <div class="control">
@@ -42,36 +42,32 @@
       <div class="card-content">
         <div class="b-table has-pagination">
           <div class="table-wrapper has-mobile-cards">
-              {% if issues %}
+              {% if students %}
             <table class="table is-fullwidth is-striped is-hoverable is-sortable is-fullwidth">
               <thead>
               <tr>
                 <th>No.</th>
-                <th>Title</th>
-                <th>Module</th>
-                <th>Status</th>
-                <th>Category</th>
-                  <th>Actions</th>
+                <th>Name</th>
+                <th>Admission Number</th>
+                <th>Course</th>
+                <th>Actions</th>
 
                 <th></th>
               </tr>
               </thead>
               <tbody>
-              {% for issue in issues %}
+              {% for student in students %}
               <tr>
                 
                   <td>{{ forloop.counter }}</td>
-                <td data-label="title">
-    <i class="fas fa-heading"></i> {{ issue.title }} 
+                <td data-label="Name">
+    <i class="fas fa-user"></i> {{ student.first_name }} {{ student.last_name }}
 </td>
 <td data-label="Company">
-    <i class="fas fa-cogs"></i> {{ issue.module }}
+    <i class="fas fa-id-card"></i> {{ student.student_id }}
 </td>
 <td data-label="City">
-    <i class="fas fa-check-circle"></i> {{ issue.status }}
-</td>
-                  <td data-label="City">
-    <i class="fas fa-tags"></i> {{ issue.category }}
+    <i class="fas fa-book"></i> {{ student.course }}
 </td>
 
                  
@@ -79,13 +75,13 @@
 
                 <td class="is-actions-cell">
     <div class="buttons is-right">
-        <a href="{% url 'issue_detail' issue.pk %}" class="button is-small is-primary">
+        <a href="{% url 'student_details' student.pk %}" class="button is-small is-primary">
             <span class="icon"><i class="fas fa-eye"></i></span>
         </a>
-        <a href="{% url 'issue_update' issue.pk %}" class="button is-small is-info">
+        <a href="{% url 'student_update' student.pk %}" class="button is-small is-info">
             <span class="icon"><i class="fas fa-edit"></i></span>
         </a> 
-        <a href="{% url 'issue_delete' issue.pk %}" class="button is-small is-danger jb-modal" data-target="sample-modal">
+        <a href="{% url 'student_delete' student.pk %}" class="button is-small is-danger jb-modal" data-target="sample-modal">
             <span class="icon"><i class="fas fa-trash-alt"></i></span>
         </a>
     </div>
@@ -109,11 +105,4 @@
     </div>
   </div>
 </section>
-    
-{% endblock content %}
-
-{% block footer %}
 {% endblock %}
-
-
-

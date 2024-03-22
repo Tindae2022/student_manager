@@ -1,25 +1,25 @@
-{% extends 'admin/dashboard.html' %}
+{% extends 'core/index.html' %}
 {% load static %}
 
 {% block content %}
-    <div class="column is-12-tablet is-3-desktop is-3-widescreen">
+    <div class="column is-12-tablet is-3-desktop is-3-widescreen" style="margin: 20px;">
         <div class="columns">
             <!-- List of Students -->
             <div class="column is-full">
-                <div class="notification is-danger has-text">
-                    <p class="text is-danger is-medium" style="font-weight: bold;">{{ all_semester }} </p>
+                <div class="notification is-info has-text">
+                    <p class="text is-info is-medium" style="font-weight: bold;">{{ all_semester }} </p>
                 </div>
             </div>
             
             <div class="header">
                     <div class="buttons">
                         
-                                        <a href="{% url 'semester_create' %}" class="button is-dark is-medium">
+                                        <a href="{% url 'semester_create' %}" class="button is-info is-medium">
                     <i class="fas fa-plus"></i>  Add New Semester
                
 
                         
-                                       <a href="{% url 'semester_table' %}" class="button is-link is-medium">
+                                       <a href="{% url 'semester_table' %}" class="button is-info is-medium">
                     View Semester Classes
                 </a>
                                         </a>                         

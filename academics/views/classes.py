@@ -10,7 +10,7 @@ class ClassListView(LoginRequiredMixin, ListView):
     model = Class
     template_name = 'class/class_index.html'
     context_object_name = 'class_index'
-    paginate_by = 3
+    paginate_by = 10
 
     def get_queryset(self):
         queryset = Class.objects.all_classes()
@@ -60,7 +60,7 @@ def class_delete(request):
     return render(request, 'class/delete_success.html')
 
 
-class ClassDetailView(DetailView):
+class ClassDetailView(LoginRequiredMixin, DetailView):
     model = Class
     template_name = 'timetable/timetable.html'
     context_object_name = 'class_instance'
