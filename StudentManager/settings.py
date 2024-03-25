@@ -24,12 +24,21 @@ environ.Env.read_env()
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
+import os
+from dotenv import load_dotenv
+
+env_path = load_dotenv(os.path.join(BASE_DIR, '.env'))
+load_dotenv(env_path)
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-um55t4%z5j&xbwa)kbb-2nwer^_zeg+*!&rl&cl173z5lff%zf'
+# SECRET_KEY = 'django-insecure-um55t4%z5j&xbwa)kbb-2nwer^_zeg+*!&rl&cl173z5lff%zf'
+import os
+
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-um55t4%z5j&xbwa)kbb-2nwer^_zeg+*!&rl&cl173z5lff%zf')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
+# DEBUG = False
+DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 ALLOWED_HOSTS = ['*']
 
 # Application definition
@@ -46,6 +55,7 @@ INSTALLED_APPS = [
     'issues.apps.IssuesConfig',
     'crispy_bulma',
     'crispy_forms',
+
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bulma"
@@ -54,6 +64,7 @@ CRISPY_TEMPLATE_PACK = "bulma"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -85,17 +96,22 @@ WSGI_APPLICATION = 'StudentManager.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-'''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-'''
-DATABASES = {
-    'default': dj_database_url.parse(env('DATABASE_URL'))
-}
+
+import dj_database_url
+
+if 'DATABASE_URL' in os.environ:
+    DATABASES['default'] = dj_database_url.config(
+        conn_max_age=500,
+        conn_health_checks=True,
+    )
+
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -136,10 +152,8 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 LOGIN_URL = 'login'
 LOGOUT_REDIRECT_URL = 'logout'
 
-
 # For other users (replace 'dashboard' with the actual URL for the user dashboard)
 LOGIN_REDIRECT_URL = 'dashboard'
-
 
 # Choose the appropriate redirect URL based on the user type
 
@@ -147,3 +161,10 @@ LOGIN_REDIRECT_URL = 'dashboard'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STORAGES = {
+    # ...
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
